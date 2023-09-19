@@ -12,6 +12,9 @@
 	where		ds_email = ? 
 	and			ds_senha = ?
 
+	delete from tb_cliente
+	where		id_cliente = ?
+
 
 
 	insert into tb_produto( nm_produto, vl_preco, nr_avaliacao, ds_genero, nr_estoque, bt_destaque, bt_disponivel, bt_promocao, vl_precopromocao )

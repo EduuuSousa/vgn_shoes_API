@@ -16,6 +16,36 @@ export async function Cadastrarcliente( cliente ){
     return cliente
 };
 
+export async function AlterarInfos( cliente, id){
+    const comando= `update      tb_cliente
+                    set         nm_cliente = ?
+                                ds_CPF = ?
+                                dt_nascimento = ?
+                                ds_senha = ? 
+                    where       id_cliente = ?`
+
+    let [ dados ] = await conexao.query( comando , [
+    cliente.nome,
+    cliente.cpf,
+    cliente.data_nasc,
+    cliente.senha,
+    id
+    ])
+    let linha= dados.affectedRows;
+    return linha;
+}
+
+export async function ExcluirConta ( id ){
+    const comando= `	delete from tb_cliente
+	                    where		id_cliente = ?`
+
+    let [dados] = await conexao.query( comando, [
+        id
+    ]);
+    let linha = dados.affectedRows;
+    return linha
+}
+
 export async function Login ( email, senha){
     const comando = `	select		id_cliente as id
                                     nm_cliente as nome
@@ -28,9 +58,21 @@ export async function Login ( email, senha){
                         and			ds_senha = ?`
 
     let [ dados ] = await conexao.query( comando, [
-        email, 
-        senha
+    email, 
+    senha
     ])
     return dados
 }
 
+export async function registrarCartao(idCartao, idCliente){
+    const comando= `update      tb_cliente
+                    set         id_cartao = ?
+                    where       id_cliente = ?`
+
+    let [dados] = await conexao.query( comando, [
+        idCartao,
+        idCliente
+    ]);
+    let linha= dados.affectedRows;
+    return linha; 
+}

@@ -1,36 +1,44 @@
 
 create table tb_cliente (
 	id_cliente          int primary key auto_increment
+	id_cartao           int
 	nm_cliente          varchar(100)
 	ds_CPF              varchar(100)
 	dt_nascimento       date
 	ds_email            varchar(100)
 	ds_senha            varchar(100)
-	id_cartao           int > tb_cartao.id
+	 
+	foreign key (id_cartao) references tb_cartao(id_cartao)
 )
 
-tb_endereco {
+create table tb_endereco (
 	id_endereco         int primary key auto_increment
-	id_cliente          integer *>* tb_cliente.id_cliente
+	id_cliente          int 
 	ds_estado           varchar(400)
 	ds_cidade           varchar(400)
 	ds_rua              varchar(400)
 	ds_bairro           varchar(400)
 	ds_numero           int
-}
 
-tb_pedido {
+	foreign key (id_cliente) references tb_cliente(id_cliente)
+)
+
+create table tb_pedido (
 	id_pedido           int primary key auto_increment
-	id_endereco         int *> tb_endereco.id_endereco
+	id_endereco         int 
+	id_cartao			int
 	nr_perdido          integer
 	ds_nota_fiscal      varchar(100)
 	qtd_parcelas        integer
 	dt_pedido           date
 	ds_situacao         varchar(100)
 	ds_pagamento        varchar(100)
-}
 
-tb_produto {
+	foreign key (id_endereco) references tb_endereco(id_endereco)
+	foreign key (id_cartao) references tb_cartao(id_cartao)
+)
+
+create table tb_produto (
 	id_produto          int primary key auto_increment
 	nm_produto          varchar(200)
 	vl_preco            decimal(12,2)
@@ -41,45 +49,56 @@ tb_produto {
 	bt_destaque         boolean
 	bt_promocao         boolean
 	vl_precopromocao    decimal(12,2)
-}
+)
 
-tb_tamanho {
+create table tb_tamanho (
 	id_tamanho          int primary key auto_increment
-	id_produto          int >* tb_produto.id_produto
+	id_produto          int 
 	vl_tamanho          int
-}
 
-tb_modelo {
+	foreign key (id_produto) references tb_produto(id_produto) 
+)
+create table tb_modelo (
 	id_modelo           int primary key auto_increment
-	id_produto          int >* tb_produto.id_produto
+	id_produto          int 
 	DS_MODELO           varchar(200)
-}
 
-tb_cor {
+	foreign key (id_produto) references tb_produto(id_produto) 
+
+)
+
+create table tb_cor (
 	id_cor              int primary key auto_increment
-	id_produto          int >* tb_produto.id_produto
+	id_produto          int 
 	ds_cor              varchar(200)
-}
 
-tb_produto_item {
+	foreign key (id_produto) references tb_produto(id_produto) 
+)
+
+create table tb_produto_item (
 	id_produto_item    int primary key auto_increment
-	id_produto         int *>* tb_produto.id_produto
-	id_pedido          int *>* tb_pedido.id_pedido
+	id_produto         int 
+	id_pedido          int 
 	nr_qtdItem         int
-}
 
-tb_imagem_produto {
+	foreign key (id_produto) references tb_produto(id_produto) 
+	foreign key (id_pedido) references tb_pedido(id_pedido) 
+)
+
+create table tb_imagem_produto (
 	id_imagem          int primary key auto_increment
-    id_produto          int >* tb_produto.id_produto
+    id_produto          int 
 	ds_imagem          varchar(500)
-}
 
-tb_cartao {
+	foreign key (id_produto) references tb_produto(id_produto) 
+)
+
+create table tb_cartao (
 	id                 int primary key auto_increment
 	nm_cartao          varchar(200)
 	nm_pessoa          varchar(200)
 	nr_cartao          int
 	nr_cvc             int
 	nr_validade        int
-}
+)
 

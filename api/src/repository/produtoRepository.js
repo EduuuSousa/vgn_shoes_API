@@ -24,7 +24,7 @@ export async function CadastrarProduto( produto ){
 
 export async function AlterarProduto( id, produto ){
     const comando= `	update		 	tb_produto
-                    	select			nm_produto = ? ,
+                    	set 			nm_produto = ? ,
                                         vl_preco = ? ,
                                         nr_avaliacao = ? ,
                                         ds_genero = ? ,
