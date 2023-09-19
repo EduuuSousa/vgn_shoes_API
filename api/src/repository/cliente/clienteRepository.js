@@ -1,4 +1,4 @@
-import { conexao } from "./connection.js";
+import { conexao } from "../connection.js";
 
 export async function Cadastrarcliente( cliente ){
     const comando = `insert into  tb_cliente( nm_cliente, ds_CPF, dt_nascimento, ds_email, ds_senha)
@@ -75,4 +75,16 @@ export async function registrarCartao(idCartao, idCliente){
     ]);
     let linha= dados.affectedRows;
     return linha; 
+}
+
+export async function retirarCartao ( idCliente ){
+    const comando= `delete      id_cartao
+                    from        tb_cliente
+                    where       id_cliente = ?`
+
+    let[ dados ] = await conexao.query( comando, [
+        idCliente
+    ]);
+    let linha= dados.affectedRows;
+    return linha;
 }
