@@ -14,6 +14,7 @@ create table tb_cliente (
 create table tb_endereco (
 	id_endereco         int primary key auto_increment
 	id_cliente          int 
+	ds_Cep				varchar(400)
 	ds_estado           varchar(400)
 	ds_cidade           varchar(400)
 	ds_rua              varchar(400)
@@ -27,7 +28,6 @@ create table tb_pedido (
 	id_pedido           int primary key auto_increment
 	id_endereco         int 
 	id_cartao			int
-	nr_perdido          integer
 	ds_nota_fiscal      varchar(100)
 	qtd_parcelas        integer
 	dt_pedido           date
@@ -94,11 +94,11 @@ create table tb_imagem_produto (
 )
 
 create table tb_cartao (
-	id                 int primary key auto_increment
+	id_cartao          int primary key auto_increment
 	nm_cartao          varchar(200)
 	nm_pessoa          varchar(200)
 	nr_cartao          int
 	nr_cvc             int
-	nr_validade        int
+	dt_validade        date
 )
 
