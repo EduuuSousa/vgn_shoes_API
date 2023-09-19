@@ -1,5 +1,3 @@
-import 'dotenv/config'
-
 import mysql from 'mysql2/promise'
 
 const conexao = await mysql.createConnection({
@@ -13,4 +11,4 @@ const conexao = await mysql.createConnection({
 console.log('BD conectado');
 
 
-export { conexao }
+export default conexao

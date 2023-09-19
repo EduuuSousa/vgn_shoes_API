@@ -1,5 +1,4 @@
 import 'dotenv/config'
-import { conexao } from './repository/connection.js';
 
 import cors from 'cors';
 import express from 'express';
