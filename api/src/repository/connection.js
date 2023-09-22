@@ -11,4 +11,4 @@ const conexao = await mysql.createConnection({
 console.log('BD conectado');
 
 
-export default conexao
+export default conexao;

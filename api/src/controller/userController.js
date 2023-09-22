@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Cadastrarcliente, Login } from "../repository/userRepository.js";
+import { Cadastrarcliente, Login } from "../repository/cliente/clienteRepository.js";
 
 const endpoint = Router();
 
