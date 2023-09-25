@@ -1,33 +1,33 @@
 
 create table tb_cliente (
-	id_cliente          int primary key auto_increment
-	id_cartao           int
-	nm_cliente          varchar(100)
-	ds_CPF              varchar(100)
-	dt_nascimento       date
-	ds_email            varchar(100)
-	ds_senha            varchar(100)
+	id_cliente          int primary key auto_increment,
+	id_cartao           int,
+	nm_cliente          varchar(100),
+	ds_CPF              varchar(100),
+	dt_nascimento       varchar(20),
+	ds_email            varchar(100),
+	ds_senha            varchar(100),
 	 
 	foreign key (id_cartao) references tb_cartao(id_cartao)
-)
+);
 
 create table tb_endereco (
-	id_endereco         int primary key auto_increment
-	id_cliente          int 
-	ds_Cep				varchar(400)
-	ds_estado           varchar(400)
-	ds_cidade           varchar(400)
-	ds_rua              varchar(400)
-	ds_bairro           varchar(400)
-	ds_numero           int
+	id_endereco         int primary key auto_increment,
+	id_cliente          int ,
+	ds_Cep				varchar(400),
+	ds_estado           varchar(400),
+	ds_cidade           varchar(400),
+	ds_rua              varchar(400),
+	ds_bairro           varchar(400),
+	ds_numero          	varchar(400),
 
 	foreign key (id_cliente) references tb_cliente(id_cliente)
-)
+);
 
 create table tb_pedido (
-	id_pedido           int primary key auto_increment
-	id_endereco         int 
-	id_cartao			int
+	id_pedido           int primary key auto_increment,
+	id_endereco         int ,
+	id_cartao			int,
 	ds_nota_fiscal      varchar(100)
 	qtd_parcelas        integer
 	dt_pedido           date

@@ -7,7 +7,7 @@ export async function Cadastrarcliente( cliente ){
     let [ dados ] = await conexao.query( comando , [
         cliente.nome,
         cliente.cpf,
-        cliente.data_nasc,
+        cliente.data,
         cliente.email,
         cliente.senha
     ])
