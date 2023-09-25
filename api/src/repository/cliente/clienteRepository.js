@@ -1,4 +1,4 @@
-import { conexao } from "../connection.js";
+import conexao from "../connection.js";
 
 export async function Cadastrarcliente( cliente ){
     const comando = `insert into  tb_cliente( nm_cliente, ds_CPF, dt_nascimento, ds_email, ds_senha)

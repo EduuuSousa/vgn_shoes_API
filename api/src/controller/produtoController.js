@@ -53,3 +53,5 @@ endpoint.get('/produto' ,async (req, resp) => {
         )
     }
 }) 
+
+export default endpoint
