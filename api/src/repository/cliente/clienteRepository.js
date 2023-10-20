@@ -1,13 +1,13 @@
 import conexao from "../connection.js";
 
 export async function Cadastrarcliente( cliente ){
-    const comando = `insert into  tb_cliente( nm_cliente, ds_CPF, dt_nascimento, ds_email, ds_senha)
+    const comando = `insert into  tb_cliente( nm_cliente, ds_CPF, ds_nascimento, ds_email, ds_senha)
                      values( ?, ?, ?, ?, ?)`
 
-    let [ dados ] = await conexao.query( comando , [
+    let [ dados ] = await conexao.query( comando , [ 
         cliente.nome,
         cliente.cpf,
-        cliente.data,
+        cliente.nascimento,
         cliente.email,
         cliente.senha
     ])
@@ -20,7 +20,7 @@ export async function AlterarInfos( cliente, id){
     const comando= `update      tb_cliente
                     set         nm_cliente = ?
                                 ds_CPF = ?
-                                dt_nascimento = ?
+                                ds_nascimento = ?
                                 ds_senha = ? 
                     where       id_cliente = ?`
 

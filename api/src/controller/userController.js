@@ -7,10 +7,10 @@ const endpoint = Router();
 endpoint.post('/criarconta', async ( req, resp ) => {
     try {
         let cliente = req.body;
-        let r = await Cadastrarcliente( cliente );
-        resp.send( r );
+        let r = await Cadastrarcliente(cliente);
+        resp.send(r);
     } catch (error) {
-         resp.status(400).send( err.mensage )
+         resp.status(400).send(error.mensage )
     }
 })
 
