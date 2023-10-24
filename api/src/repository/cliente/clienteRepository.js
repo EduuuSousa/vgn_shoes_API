@@ -1,7 +1,7 @@
 import conexao from "../connection.js";
 
 export async function Cadastrarcliente( cliente ){
-    const comando = `insert into  tb_cliente( nm_cliente, ds_CPF, ds_nascimento, ds_email, ds_senha)
+    const comando = `insert into  tb_cliente( nm_cliente, ds_cpf, ds_nascimento, ds_email, ds_senha)
                      values( ?, ?, ?, ?, ?)`
 
     let [ dados ] = await conexao.query( comando , [ 
@@ -9,12 +9,37 @@ export async function Cadastrarcliente( cliente ){
         cliente.cpf,
         cliente.nascimento,
         cliente.email,
-        cliente.senha
+        cliente.senha,
     ])
 
     cliente.id = dados.InsetID;
     return cliente
 };
+
+
+export async function VerificarDuplicado(email, cpf){
+    const comando = 'SELECT * FROM tb_cliente WHERE ds_email = ?';
+
+    const [resposta1] = await conexao.query(comando, [email])
+    if(resposta1.length != 0){
+        return true
+    }
+    else{
+        false
+    }
+}
+
+export async function VerificarCPF(cpf){
+    const comandocpf = 'select * from tb_cliente where ds_cpf = ?';
+    
+    const [resposta2] = await conexao.query(comandocpf, [cpf])
+    if(resposta2.length != 0){
+        return true
+    }
+    else{
+        false
+    }
+}
 
 export async function AlterarInfos( cliente, id){
     const comando= `update      tb_cliente
@@ -46,22 +71,12 @@ export async function ExcluirConta ( id ){
     return linha
 }
 
-export async function Login ( email, senha){
-    const comando = `	select		id_cliente as id
-                                    nm_cliente as nome
-                                    ds_CPF as CPF
-                                    dt_nascimento as data_nasc
-                                    ds_email as email
-                                    ds_senha as senha
-                        from 		tb_cliente
-                        where		ds_email = ? 
-                        and			ds_senha = ?`
+export async function Login(email, senha){
+    const comando = 'select * from tb_cliente where ds_email = ? and ds_senha = ?'
 
-    let [ dados ] = await conexao.query( comando, [
-    email, 
-    senha
-    ])
+    const [dados] = await conexao.query(comando , [email, senha])
     return dados
+    
 }
 
 export async function registrarCartao(idCartao, idCliente){
