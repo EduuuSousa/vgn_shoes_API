@@ -41,7 +41,7 @@ endpoint.post('/criarconta', async ( req, resp ) => {
 
         let r = await Cadastrarcliente(cliente);
 
-        resp.send(r);
+        resp.status(204).send(r);
         
     } catch (err) {
         resp.status(500).send( {erro: err.message} );
@@ -63,6 +63,8 @@ endpoint.post('/login-user', async (req, resp) => {
    } catch (err) {
     resp.status(500).send( {erro: err.message} );
 }
-})
+});
+
+
 
 export default endpoint
