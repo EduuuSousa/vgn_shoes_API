@@ -54,10 +54,7 @@ create table tb_produto (
     nr_avaliacao        decimal(5,2),
     ds_genero           varchar(50),
     nr_estoque          int,
-    bt_disponivel       tinyint(1),
-    bt_destaque         tinyint(1),
-    bt_promocao         tinyint(1),
-    vl_precopromocao    decimal(10,2)
+    bt_disponivel       boolean
 );
 
 create table tb_tamanho (

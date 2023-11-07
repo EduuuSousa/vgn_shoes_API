@@ -1,21 +1,21 @@
 import { Router } from "express";
-import { CadastrarProdutom, consultarProduto, deletarProduto, AlterarProduto } from "../repository/produtoRepository.js";
+import { CadastrarProduto } from "../repository/produto/produtoRepository.js";
 
 
 const endpoint = Router();
 
-endpoint.post('/produto' ,async (req, resp) => {
+endpoint.post('/cadastrar-produto' ,async (req, resp) => {
     try {
-        let produto = req.body;
-        let r = await CadastrarProdutom( produto );
-        resp.send(r);
-    } catch (err) {
-        resp.status(400).send(
-            err.message
-        )
-    }
-} )
+        const produto = req.body;
+        const r = CadastrarProduto(produto);
+        resp.status(204).send();
 
+    } catch (err) {
+        resp.status(500).send( {erro: err.message});
+    }
+} );
+
+/*
 endpoint.put('/produto/:id' ,async (req, resp ) => {
     try {
         let produto = req.body;
@@ -53,5 +53,5 @@ endpoint.get('/produto' ,async (req, resp) => {
         )
     }
 }) 
-
+*/
 export default endpoint
