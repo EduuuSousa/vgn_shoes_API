@@ -3,7 +3,7 @@ import conexao from "../connection.js";
 
 export async function CadastrarProduto(produto){
     const comando = `insert into tb_produto (nm_produto, vl_preco, nr_avaliacao, ds_genero, nr_estoque, bt_disponivel)
-                                  values('?, '?', ? , '?', ?, ?);`;
+                                  values(?, ?, ? , ?, ?, ?);`;
 
     const [dados] = await conexao.query(comando , [
         produto.nome,
