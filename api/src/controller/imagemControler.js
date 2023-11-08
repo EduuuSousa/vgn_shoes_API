@@ -1,34 +1,26 @@
-import multer from "multer";
+import { Router } from 'express';
+import { InserirImagem } from '../repository/produto/imagemRepository';
 
-import { conexao } from "../connection.js";
-
-import { InserirImagem } from "../repository/produto/imagemRepository.js";
-
+import multer from 'multer';
 
 const endpoint = Router();
-
-const upload = multer({dest:'storege/tenis'})
-
+const upload = multer({ dest: 'storage/tenis' });
 
 endpoint.post('/produto/:id/imagem', upload.single('imagem'), async (req, resp) => {
-
     try {
         const { id } = req.params;
         const imagem = req.file.path;
 
-        const resp = await InserirImagem(imagem, id);
+        const linhasAfetadas = await InserirImagem (imagem, id);
 
-        if (resposta != 1)
-            throw new Error('A imagem não pode ser salva :(');
-
-
+        if (linhasAfetadas !== 1) {
+            throw new Error('A imagem não pôde ser salva :(');
+        }
 
         resp.status(204).send();
-
     } catch (error) {
-        resp.status(400).send(
-            err.message
-        )
+        resp.status(400).send(error.message);
     }
+});
 
-})
+export default endpoint;

@@ -47,3 +47,7 @@
 				bt_promocao as promocao 
 				vl_precopromocao as preco_da_promocao
 	from		tb_produto
+
+	Update tb_produto 
+                      set  tb_imagem_produto =?
+                      where id_produto =?`  
