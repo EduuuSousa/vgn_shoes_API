@@ -1,25 +1,30 @@
 import { conexao } from "../connection.js";
 
 
-export async function InserirImagem( imagem ){
-    const comando= `    insert into tb_imagem_produto( id_produto, ds_imagem)
-                                                values( ?, ?)`
+export async function InserirImagem(idProduto, caminhoImagem) {
+    const comando = `insert into tb_imagem_produto (id_produto, ds_imagem) values (?, ?)`;
 
-    let [ dados ] = await conexao.query( comando,[
-        imagem.idProduto,
-        imagem.imagem
-    ]);
-    imagem.id = dados.insertId;
-    return imagem
+    try {
+        let [dados] = await conexao.query(comando, [idProduto, caminhoImagem]);
+        const imagem = {
+            id: dados.insertId,
+            idProduto: idProduto,
+            imagem: caminhoImagem
+        };
+        return imagem;
+    } catch (error) {
+        throw new Error('Erro ao inserir imagem no banco de dados');
+    }
 }
 
-export async function AlterarImagem( imagem, id){
-    const comando= `    update      tb_imagem_produto
+
+export async function AlterarImagem(imagem, id) {
+    const comando = `    update      tb_imagem_produto
                         set         id_produto = ?
                                     ds_imagem_produto = ?
                         where       id_imagem = ?`
-                
-    let [ dados ] = await conexao.query( comando, [
+
+    let [dados] = await conexao.query(comando, [
         imagem.idProduto,
         imagem.imagem,
         id
@@ -28,23 +33,23 @@ export async function AlterarImagem( imagem, id){
     return linha
 }
 
-export async function ExcluirImagem( id ){
-    const comando= `    delete
+export async function ExcluirImagem(id) {
+    const comando = `    delete
                         from        tb_imagem_produto
                         where       id_imagem = ?`
 
-    let [ dados ] = await conexao.query( comando, [id])
+    let [dados] = await conexao.query(comando, [id])
     let linha = dados.affectedRows;
-    return linha 
+    return linha
 }
 
-export async function consultarImagens( id ){
-    const comando= `    select      id_imagem as id
+export async function consultarImagens(id) {
+    const comando = `    select      id_imagem as id
                                     id_produto as produto
                                     ds_imagem as imagem
                         from        tb_imagem_produto
                         where       id_produto = ?;`
-                
-    let [ dados ] = await conexao.query( comando, [ id ])
+
+    let [dados] = await conexao.query(comando, [id])
     return dados;
 }
