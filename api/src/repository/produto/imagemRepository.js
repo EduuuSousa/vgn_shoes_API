@@ -1,23 +1,11 @@
-import { conexao } from "../connection.js";
+import conexao  from "../connection.js";
 
-export async function InserirImagem(imagem, id) {
+export async function InserirImagem(caminhoImagem) {
   const comando = `insert into tb_imagem (ds_imagem) values (?)`;
 
-  const [repostas] = await con.query(comando, [imagem, id]);
-  return repostas.affectedRows;
+        let [dados] = await conexao.query(comando, [caminhoImagem]);
 
-  /*try {
-        let [dados] = await conexao.query(comando, [idProduto, caminhoImagem]);
-        const imagem = {
-            id: dados.insertId,
-            idProduto: idProduto,
-            imagem: caminhoImagem
-        };
-        return imagem;
-    } catch (error) {
-        throw new Error('Erro ao inserir imagem no banco de dados');
-    }
-    */
+        return dados.affectedRows;  
 }
 
 export async function AlterarImagem(imagem, id) {

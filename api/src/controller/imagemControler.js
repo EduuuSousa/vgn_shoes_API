@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { InserirImagem } from '../repository/produto/imagemRepository';
+import { InserirImagem } from '../repository/produto/imagemRepository.js';
 
 import multer from 'multer';
 
@@ -8,10 +8,9 @@ const upload = multer({ dest: 'storage/tenis' });
 
 endpoint.post('/produto/:id/imagem', upload.single('imagem'), async (req, resp) => {
     try {
-        const { id } = req.params;
         const imagem = req.file.path;
 
-        const linhasAfetadas = await InserirImagem (imagem, id);
+        const linhasAfetadas = await InserirImagem (imagem);
 
         if (linhasAfetadas !== 1) {
             throw new Error('A imagem não pôde ser salva :(');
