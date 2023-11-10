@@ -54,7 +54,15 @@ create table tb_produto (
     nr_avaliacao        decimal(5,2),
     ds_genero           varchar(50),
     nr_estoque          int,
-    bt_disponivel       boolean
+    bt_disponivel       boolean,
+	ds_descricao		varchar(500),
+    ds_forro			varchar(500),
+    ds_solado 			varchar(500),
+    ds_palmilha			varchar(500),
+    ds_imagem1			varchar(500),
+    ds_imagem2			varchar(500),
+    ds_imagem3			varchar(500),
+    ds_imagem4			varchar(500)
 );
 
 create table tb_tamanho (
@@ -87,9 +95,3 @@ create table tb_produto_item (
     foreign key (id_pedido) references tb_pedido(id_pedido)
 );
 
-create table tb_imagem_produto (
-    id_imagem          int primary key auto_increment,
-    id_produto          int,
-    ds_imagem          varchar(200),
-    foreign key (id_produto) references tb_produto(id_produto)
-);
