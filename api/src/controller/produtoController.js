@@ -7,13 +7,13 @@ const endpoint = Router();
 endpoint.post('/cadastrar-produto' ,async (req, resp) => {
     try {
         const produto = req.body;
-        const r = CadastrarProduto(produto);
-        resp.status(204).send();
+        await CadastrarProduto(produto); // Aguarda a conclusão da função assíncrona
 
+        resp.status(204).send();
     } catch (err) {
-        resp.status(500).send( {erro: err.message});
+        resp.status(500).send({ erro: err.message });
     }
-} );
+});
 
 /*
 endpoint.put('/produto/:id' ,async (req, resp ) => {
