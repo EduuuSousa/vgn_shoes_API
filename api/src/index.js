@@ -4,14 +4,12 @@ import cors from 'cors';
 import express from 'express';
 import ClienteController from '../src/controller/userController.js'
 import ProdutoController from '../src/controller/produtoController.js'
-import imagemController from '../src/controller/imagemControler.js'
 
 const server= express();
 server.use(cors());
 server.use(express.json());
 server.use(ClienteController)
 server.use(ProdutoController)
-server.use(imagemController)
 server.use('storage/tenis',express.static('storage/tenis'));
 
 

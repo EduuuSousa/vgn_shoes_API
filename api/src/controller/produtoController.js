@@ -1,101 +1,65 @@
-import { Router } from "express";
-import { CadastrarProduto } from "../repository/produto/produtoRepository.js";
+import { Router } from 'express';
+import {CadastrarProduto} from '../repository/produto/produtoRepository.js'
 
+import multer from 'multer';
 
 const endpoint = Router();
+const upload = multer({ dest: 'storage/tenis' });
 
-
-endpoint.post('/cadastrar-produto', async (req,resp) => {
-
+endpoint.post('/produto/:id/imagens/:campo', upload.single('prodimg') ,async (req, resp) => {
     try {
-        const novoProduto=req.body;
+        if (!req.file)
+            throw new Error("Não foi possível salvar a imagem!")
+        
+        const {id, campo} = req.params;
+        const img = req.file.path;
 
-        if (!novoProduto.nome)
-        throw new Error('Nome do Produto é obrigatorio!');
-
-        if (!novoProduto.preco)
-        throw new Error('preço do Produto é obrigatorio!');
-
-        if (!novoProduto.avaliacao)
-        throw new Error('avalicao do Produto é obrigatorio!');
-
-        if (!novoProduto.genero)
-        throw new Error('genero do Produto é obrigatorio!');
-
-        if (!novoProduto.estoque)
-        throw new Error('estoque do Produto é obrigatorio!');
-
-        if (!novoProduto.disponivel)
-        throw new Error('disponivel do Produto é obrigatorio!');
-
-        if (!novoProduto.Descricao)
-        throw new Error('Descricao do Produto é obrigatorio!');
-
-        if (!novoProduto.Forro)
-        throw new Error('Forro do Produto é obrigatorio!');
-
-        if (!novoProduto.solado)
-        throw new Error('solado do Produto é obrigatorio!');
-
-        if (!novoProduto.palmilha)
-        throw new Error('palmilha do Produto é obrigatorio!');
-
-
-    } catch (error) {
+        const resposta = await CadastrarImagensProduto(img, id, campo);
+        if (resposta != 1)
+            throw new Error("Não foi possível salvar a imagem!")
+        resp.status(204).send();
+    }
+    catch (err) {
         resp.status(400).send({
-            error: error.message
+            erro: err.message
         })
     }
-});
+})
 
-endpoint.post('/cadastrar-produto' ,async (req, resp) => {
+
+endpoint.post('/produto/registrar', async (req, resp) => {
     try {
-        const produto = req.body;
-        await CadastrarProduto(produto); // Aguarda a conclusão da função assíncrona
+        const Produto=req.body;
 
-        resp.status(204).send();
-    } catch (err) {
+        if (!Produto.nome || Produto.nome == '')
+        throw new Error('Nome do Produto é obrigatorio!');
+
+        if (!Produto.preco || Produto.preco == '')
+        throw new Error('preço do Produto é obrigatorio!');
+
+        if (!Produto.avaliacao || Produto.avaliacao == '')
+        throw new Error('avalicao do Produto é obrigatorio!');
+
+        if (!Produto.genero || Produto.genero == '')
+        throw new Error('genero do Produto é obrigatorio!');
+
+        if (!Produto.estoque || Produto.estoque == '')
+        throw new Error('estoque do Produto é obrigatorio!');
+
+        if (!Produto.disponivel || Produto.disponivel == '')
+        throw new Error('disponivel do Produto é obrigatorio!');
+
+        if (!Produto.descricao || Produto.descricao == '')
+        throw new Error('Descricao do Produto é obrigatorio!');
+
+        const resposta = await CadastrarProduto(Produto);
+        resp.status(204).send(resposta);
+    }
+    catch (err) {
         resp.status(500).send({ erro: err.message });
     }
-});
-
-/*
-endpoint.put('/produto/:id' ,async (req, resp ) => {
-    try {
-        let produto = req.body;
-        let id = req.params.id;
-        let r = await AlterarProduto( produto, id)
-
-        resp.send()
-    } catch (err) {
-        resp.status(400).send(
-            err.message
-        )
-    }
 })
 
-endpoint.delete('/produto/:id' ,async (req, resp) => { 
-    try {
-        let id = req.params.id;
-        let r = await deletarProduto( id );
+export default endpoint;
 
-        resp.send()
-    } catch (err) {
-        resp.status(400).send( 
-            err.message
-        )
-    }
-})
 
-endpoint.get('/produto' ,async (req, resp) => {
-    try {
-        let r = await consultarProduto();
-        resp.send(r)
-    } catch (err) {
-        resp.status(400).send(
-            err.message
-        )
-    }
-}) 
-*/
-export default endpoint

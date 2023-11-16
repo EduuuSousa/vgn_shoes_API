@@ -50,4 +50,13 @@
 
 	Update tb_produto 
                       set  tb_imagem_produto =?
-                      where id_produto =?`  
+                      where id_produto =?` `;
+/*cadrasto produto item{
+	"nome":"teste",
+  	"preco":"20",
+ 	"avaliacao":"5",
+ 	"genero":"teste",
+ 	"estoque":"10",
+	"disponivel": true,
+	"descricao": "teste"
+}

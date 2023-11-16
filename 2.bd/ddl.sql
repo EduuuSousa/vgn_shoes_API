@@ -2,6 +2,7 @@ create database dbvgn_shoes;
 use dbvgn_shoes;
 
 
+
 create table tb_cartao (
     id_cartao          int primary key auto_increment,
     nm_cartao          varchar(200),
@@ -56,9 +57,6 @@ create table tb_produto (
     nr_estoque          int,
     bt_disponivel       boolean,
 	ds_descricao		varchar(500),
-    ds_forro			varchar(500),
-    ds_solado 			varchar(500),
-    ds_palmilha			varchar(500),
     ds_imagem1			varchar(500),
     ds_imagem2			varchar(500),
     ds_imagem3			varchar(500),
@@ -95,3 +93,10 @@ create table tb_produto_item (
     foreign key (id_pedido) references tb_pedido(id_pedido)
 );
 
+create table tb_login_adm(
+	id_adm				int primary key auto_increment,
+    nm_login			varchar(100),
+    ds_senha			varchar(100)
+);
+
+select * from tb_produto;
