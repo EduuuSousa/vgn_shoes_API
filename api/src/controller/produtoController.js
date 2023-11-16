@@ -40,6 +40,19 @@ endpoint.post('/cadastrar-produto', async (req,resp) => {
         if (!novoProduto.palmilha)
         throw new Error('palmilha do Produto é obrigatorio!');
 
+        if (!novoProduto.Imagem1)
+        throw new Error('Imagem1 do Produto é obrigatorio!');
+
+        if (!novoProduto.Imagem2)
+        throw new Error('Imagem2 do Produto é obrigatorio!');
+
+        if (!novoProduto.Imagem3)
+        throw new Error('Imagem3 do Produto é obrigatorio!');
+
+        if (!novoProduto.Imagem4)
+        throw new Error('Imagem4 do Produto é obrigatorio!');
+
+
 
     } catch (error) {
         resp.status(400).send({
@@ -51,7 +64,7 @@ endpoint.post('/cadastrar-produto', async (req,resp) => {
 endpoint.post('/cadastrar-produto' ,async (req, resp) => {
     try {
         const produto = req.body;
-        await CadastrarProduto(produto); // Aguarda a conclusão da função assíncrona
+        await CadastrarProduto(produto); 
 
         resp.status(204).send();
     } catch (err) {

@@ -8,9 +8,15 @@ const upload = multer({ dest: 'storage/tenis' });
 
 endpoint.post('/produto/:id/imagem', upload.single('imagem'), async (req, resp) => {
     try {
+
+        if (!req.file)
+         throw new Error('Escolha a imagem');
+
         const imagem = req.file.path;
 
-        const linhasAfetadas = await InserirImagem (imagem);
+        const {id} = req.params;
+
+        const linhasAfetadas = await InserirImagem (imagem,id);
 
         if (linhasAfetadas !== 1) {
             throw new Error('A imagem não pôde ser salva :(');
