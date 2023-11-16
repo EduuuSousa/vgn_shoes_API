@@ -20,6 +20,7 @@ create table tb_cliente (
     dt_nascimento       date,
     ds_email            varchar(100),
     ds_senha            varchar(100),
+    ds_img_cliente      varchar(500),
     foreign key (id_cartao) references tb_cartao(id_cartao)
 );
 
@@ -95,6 +96,7 @@ create table tb_produto_item (
 
 create table tb_login_adm(
 	id_adm				int primary key auto_increment,
+    nm_nome_adm         varchar(100),
     nm_login			varchar(100),
     ds_senha			varchar(100)
 );
