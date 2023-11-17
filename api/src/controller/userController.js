@@ -61,7 +61,7 @@ endpoint.post('/login-user', async (req, resp) => {
     
 
    } catch (err) {
-    resp.status(500).send( {erro: err.message} );
+    resp.send({erro: err.message} );
 }
 });
 
