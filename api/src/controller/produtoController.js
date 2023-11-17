@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import {CadastrarProduto} from '../repository/produto/produtoRepository.js'
+import {CadastrarProduto,CadastrarImagensProduto} from '../repository/produto/produtoRepository.js'
 
 import multer from 'multer';
 
@@ -53,7 +53,7 @@ endpoint.post('/produto/registrar', async (req, resp) => {
         throw new Error('Descricao do Produto é obrigatorio!');
 
         const resposta = await CadastrarProduto(Produto);
-        resp.status(204).send(resposta);
+        resp.send(resposta);
     }
     catch (err) {
         resp.status(500).send({ erro: err.message });
