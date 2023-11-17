@@ -1,7 +1,11 @@
 import conexao  from "../connection.js";
 
 export async function InserirImagem(caminhoImagem) {
-  const comando = `insert into tb_produto (ds_imagem1,ds_imagem2,ds_imagem3,ds_imagem4) values (?,?,?,?)`;
+  const comando = 
+  `
+  insert into tb_produto (ds_imagem1,ds_imagem2,ds_imagem3,ds_imagem4) 
+  values (?,?,?,?)
+  `;
 
         let [dados] = await conexao.query(comando, [caminhoImagem]);
 
