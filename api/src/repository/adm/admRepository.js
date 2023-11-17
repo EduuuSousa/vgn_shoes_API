@@ -5,7 +5,9 @@ export async function LoginAdm(login, senha){
 
     const [dados] = await conexao.query(comando , [login, senha])
 
-    const r = dados.affectedRows
+    const r = dados.length;
+
+    return r;
 }
 
 export async function CadastroAdm(login, senha){
