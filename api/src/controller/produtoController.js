@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import {CadastrarProduto, CadastrarImagensProduto, ListarProdutos} from '../repository/produto/produtoRepository.js'
+import {CadastrarProduto, CadastrarImagensProduto, ListarProdutos, ProdutosInfo} from '../repository/produto/produtoRepository.js'
 
 import multer from 'multer';
 
@@ -73,10 +73,22 @@ endpoint.get('/produto', async (req,resp)=> {
     }
 })
 
-endpoint.get('/produto/:imagem', (req, res) => {
-    const imagePath = path.join(__dirname, 'caminho_para_as_imagens', req.params.imagem);
-    res.sendFile(imagePath);
-  });
+
+
+
+  endpoint.get('/produto/:id', async (req, resp) => {
+    try {
+        const {id} = req.params;
+
+        const resposta = await ProdutosInfo(id);
+        resp.send(resposta);
+    }
+    catch (err) {
+        resp.status(240).send({
+            erro: err.message
+        })
+    }
+})
   
 export default endpoint;
 
