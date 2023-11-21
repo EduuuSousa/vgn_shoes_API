@@ -24,4 +24,11 @@ export async function CadastrarImagensProduto(imagem, id, campo) {
     return linhas.affectedRows;
 }
 
+export async function ListarProdutos (){
+    const comando = `SELECT nm_produto, vl_preco, nr_avaliacao, ds_descricao
+    FROM tb_produto`;
+
+    const [linhas]=await conexao.query(comando);
+    return linhas;
+}
 
