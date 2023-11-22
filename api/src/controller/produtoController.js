@@ -60,18 +60,22 @@ endpoint.post('/produto/registrar', async (req, resp) => {
     }
 })
 
-endpoint.get('/produto', async (req,resp)=> {
+endpoint.get('/produto', async (req, resp) => {
     try {
-        const resposta = await ListarProdutos();
+        const { limit } = req.query;
+        // Converta o limite para um número (certifique-se de validar e lidar com casos em que não é fornecido)
+        const quantidadeLimite = parseInt(limit, 1) || 1;
+        
+        // Faça algo com o limite na lógica de busca ou consulta
+        const resposta = await ListarProdutos({ limit: quantidadeLimite });
         resp.send(resposta);
-
     } catch (error) {
-        resp.status(4587).send({
-
-            error:error.message
-        })
+        resp.status(500).send({
+            error: error.message
+        });
     }
-})
+});
+
 
 
 
