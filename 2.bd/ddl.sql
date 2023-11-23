@@ -104,3 +104,5 @@ create table tb_login_adm(
 select * from tb_login_adm;
 
 select * from tb_produto;
+
+-- drop database dbvgn_shoes;
