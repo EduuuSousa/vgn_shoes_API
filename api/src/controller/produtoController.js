@@ -2,11 +2,26 @@ import { Router } from 'express';
 import {CadastrarProduto, CadastrarImagensProduto, ListarProdutos} from '../repository/produto/produtoRepository.js'
 
 import multer from 'multer';
+import { ConsultarImagens } from '../repository/produto/imagemRepository.js';
+
+
 
 const endpoint = Router();
+
+
+
+
 const upload = multer({ dest: 'storage/tenis' });
 
+
+
+//http://localhost:5021/files/0a59e06d8118ee03922c19d4c38b5c6b.jpg
+
+
+
+
 endpoint.post('/produto/:id/imagens/:campo', upload.single('prodimg') ,async (req, resp) => {
+
     try {
         if (!req.file)
             throw new Error("Não foi possível salvar a imagem!")
@@ -24,6 +39,7 @@ endpoint.post('/produto/:id/imagens/:campo', upload.single('prodimg') ,async (re
             erro: err.message
         })
     }
+
 })
 
 
@@ -60,22 +76,54 @@ endpoint.post('/produto/registrar', async (req, resp) => {
     }
 })
 
+
+
+
+
+  endpoint.get('/produto/:id', async (req, resp) => {
+    try {
+        const {id} = req.params;
+
+        const resposta = await ListarProdutos(id);
+        resp.send(resposta);
+    }
+    catch (err) {
+        resp.status(240).send({
+            erro: err.message
+        })
+    }
+})
+
 endpoint.get('/produto', async (req, resp) => {
     try {
-    
-        const resposta = await ListarProdutos();
+        const {id} = req.params;
+
+        const resposta = await ListarProdutos(id);
         resp.send(resposta);
-    } catch (error) {
-        resp.status(405).send({
-            error: error.message
+    }
+    catch (err) {
+        resp.status(240).send({
+            erro: err.message
+        })
+    }
+})
+
+endpoint.get('/produto/img/:id', async (req, resp) => {
+    try {
+        const { id } = req.params;
+        const resposta = await ConsultarImagens(id);
+        
+        if (resposta.length > 0) {
+            resp.send(resposta);
+        } else {
+            resp.status(404).send({ erro: 'Imagem não encontrada' });
+        }
+    } catch (err) {
+        resp.status(500).send({
+            erro: err.message
         });
     }
-    
 });
-
-
-
-
 
 
   

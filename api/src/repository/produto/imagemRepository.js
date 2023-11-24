@@ -39,11 +39,11 @@ export async function ExcluirImagem(id) {
   return linha;
 }
 
-export async function consultarImagens(id) {
-  const comando = `    select      id_imagem as id
-                                    id_produto as produto
+export async function ConsultarImagens(id) {
+  const comando = `    select      id_imagem as id,
+                                    id_produto as produto,
                                     ds_imagem as imagem
-                        from        tb_imagem_produto
+                        from        tb_produto
                         where       id_produto = ?;`;
 
   let [dados] = await conexao.query(comando, [id]);
